@@ -4,46 +4,91 @@
   <title>34 Days of You ❤️</title>
   <style>
     body {
-      font-family: Arial;
-      text-align: center;
-      background: #ffe4e1;
       margin: 0;
+      font-family: Arial;
+      background: #fcd34d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
+
     .card {
+      width: 300px;
+      height: 450px;
       background: white;
-      margin: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
       padding: 20px;
-      border-radius: 15px;
+      position: relative;
     }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+
+    .name {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .bio {
+      font-size: 14px;
+      color: gray;
+    }
+
+    .buttons {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    button {
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .no {
+      background: #ddd;
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
   </style>
 </head>
 
 <body>
 
-<h1>34 Days of You</h1>
-<p>Aku menyimpan ini semua… untuk kamu 💖</p>
-
 <div class="card">
-  <h2>Day 1</h2>
-  <p>Aku kepikiran… gimana ya kalau aku nggak swipe kamu waktu itu?</p>
+  <img src="https://via.placeholder.com/300x250" alt="photo">
+
+  <div class="name">Someone Special ❤️</div>
+  <div class="bio">Aku harap kamu swipe kanan kali ini...</div>
+
+  <div class="buttons">
+    <button class="no" onclick="alert('Yakin nggak mau? 😢')">❌</button>
+    <button class="yes" onclick="goToMain()">❤️</button>
+  </div>
 </div>
 
-<div class="card">
-  <h2>Day 2</h2>
-  <p>Kamu ternyata bukan sekadar “match biasa”</p>
-</div>
-
-<div class="card">
-  <h2>Day 3</h2>
-  <p>Aku mulai nunggu chat dari kamu</p>
-</div>
-
-<!-- nanti kamu lanjut sampai day 34 -->
-
-<div class="card">
-  <h2>Day 34</h2>
-  <p>Hari ini… semua ini untuk kamu ❤️</p>
-</div>
+<script>
+function goToMain() {
+  window.location.href = "main.html";
+}
+</script>
 
 </body>
 </html>
