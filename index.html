@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>34 Days of You 💛</title>
 
   <style>
@@ -18,11 +17,9 @@
       position: fixed;
       width: 100vw;
       height: 100vh;
-      top: 0;
-      left: 0;
+      transition: transform 0.3s ease;
     }
 
-    /* GAMBAR */
     .image {
       position: absolute;
       width: 100%;
@@ -31,18 +28,15 @@
       z-index: 1;
     }
 
-    /* OVERLAY */
     .overlay {
       position: absolute;
       bottom: 0;
       width: 100%;
       color: white;
       padding: 20px;
+      padding-bottom: 120px;
       background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
       z-index: 2;
-
-      /* FIX MOBILE */
-      padding-bottom: 80px;
     }
 
     .verified {
@@ -64,7 +58,6 @@
       margin-top: 5px;
     }
 
-    /* CLOSE BUTTON */
     .close {
       position: absolute;
       top: 20px;
@@ -74,12 +67,64 @@
       z-index: 3;
     }
 
+    .label {
+      position: absolute;
+      top: 60px;
+      font-size: 30px;
+      font-weight: bold;
+      opacity: 0;
+      z-index: 4;
+    }
+
+    .like {
+      right: 20px;
+      color: #4CAF50;
+    }
+
+    .nope {
+      left: 20px;
+      color: red;
+    }
+
+    /* 🔥 BUTTON UI */
+    .actions {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 5;
+    }
+
+    .btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .no-btn {
+      background: white;
+    }
+
+    .yes-btn {
+      background: #ff4458;
+      color: white;
+    }
+
   </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="card" id="card">
+
+  <div class="label like" id="like">LIKE</div>
+  <div class="label nope" id="nope">NOPE</div>
 
   <div class="image"></div>
 
@@ -94,7 +139,85 @@
     </div>
   </div>
 
+  <!-- 🔥 BUTTON -->
+  <div class="actions">
+    <button class="btn no-btn" onclick="swipeLeft()">❌</button>
+    <button class="btn yes-btn" onclick="swipeRight()">❤️</button>
+  </div>
+
 </div>
+
+<script>
+let card = document.getElementById("card");
+let like = document.getElementById("like");
+let nope = document.getElementById("nope");
+
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+
+card.addEventListener("touchstart", startDrag);
+card.addEventListener("mousedown", startDrag);
+
+function startDrag(e) {
+  isDragging = true;
+  startX = e.touches ? e.touches[0].clientX : e.clientX;
+}
+
+document.addEventListener("touchmove", drag);
+document.addEventListener("mousemove", drag);
+
+function drag(e) {
+  if (!isDragging) return;
+
+  currentX = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
+
+  card.style.transform = `translateX(${currentX}px) rotate(${currentX/15}deg)`;
+
+  if (currentX > 50) {
+    like.style.opacity = 1;
+    nope.style.opacity = 0;
+  } else if (currentX < -50) {
+    nope.style.opacity = 1;
+    like.style.opacity = 0;
+  } else {
+    like.style.opacity = 0;
+    nope.style.opacity = 0;
+  }
+}
+
+document.addEventListener("touchend", endDrag);
+document.addEventListener("mouseup", endDrag);
+
+function endDrag() {
+  isDragging = false;
+
+  if (currentX > 120) {
+    swipeRight();
+  } else if (currentX < -120) {
+    swipeLeft();
+  } else {
+    resetCard();
+  }
+}
+
+function swipeRight() {
+  card.style.transform = "translateX(1000px) rotate(20deg)";
+  setTimeout(() => {
+    window.location.href = "main.html";
+  }, 300);
+}
+
+function swipeLeft() {
+  card.style.transform = "translateX(-1000px) rotate(-20deg)";
+}
+
+function resetCard() {
+  card.style.transform = "translateX(0)";
+  like.style.opacity = 0;
+  nope.style.opacity = 0;
+}
+</script>
 
 </body>
 </html>
