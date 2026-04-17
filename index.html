@@ -2,67 +2,47 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-
-  <!-- WAJIB MOBILE -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>34 Days of You 💛</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
       overflow: hidden;
+      font-family: Arial;
       background: black;
     }
 
     .card {
+      position: fixed;
       width: 100vw;
       height: 100vh;
-      position: fixed;
       top: 0;
       left: 0;
-      overflow: hidden;
-      transition: transform 0.3s ease;
     }
 
+    /* GAMBAR */
     .image {
+      position: absolute;
       width: 100%;
       height: 100%;
-      background-size: cover;
-      background-position: center;
+      background: url('clara.jpg') center/cover no-repeat;
+      z-index: 1;
     }
 
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      font-size: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
+    /* OVERLAY */
     .overlay {
       position: absolute;
       bottom: 0;
       width: 100%;
-      padding: 20px;
       color: white;
+      padding: 20px;
       background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      z-index: 2;
 
-      /* 🔥 FIX BIAR NGGAK KETUTUP NAVBAR HP */
-      padding-bottom: calc(60px + env(safe-area-inset-bottom));
+      /* FIX MOBILE */
+      padding-bottom: 80px;
     }
 
     .verified {
@@ -75,33 +55,23 @@
     }
 
     .name {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: bold;
-      margin-bottom: 5px;
     }
 
     .info {
       font-size: 14px;
-      line-height: 1.5;
-      opacity: 0.9;
+      margin-top: 5px;
     }
 
-    .label {
+    /* CLOSE BUTTON */
+    .close {
       position: absolute;
-      top: 50px;
-      font-size: 28px;
-      font-weight: bold;
-      opacity: 0;
-    }
-
-    .like {
+      top: 20px;
       right: 20px;
-      color: #4CAF50;
-    }
-
-    .nope {
-      left: 20px;
-      color: red;
+      color: white;
+      font-size: 24px;
+      z-index: 3;
     }
 
   </style>
@@ -109,88 +79,22 @@
 
 <body>
 
-<div class="card" id="card">
+<div class="card">
 
-  <div class="label like" id="like">LIKE</div>
-  <div class="label nope" id="nope">NOPE</div>
+  <div class="image"></div>
 
-  <!-- FOTO -->
-  <div class="image" style="background-image: url('foto.jpg');"></div>
+  <div class="close">✕</div>
 
-  <!-- CLOSE -->
-  <div class="close-btn">✕</div>
-
-  <!-- OVERLAY -->
   <div class="overlay">
     <div class="verified">✔ Photo verified</div>
-    <div class="name">Nama Dia, 31</div>
+    <div class="name">Clara, 31</div>
     <div class="info">
       💼 IT (SAP Business Operation) <br>
-      🎓 Universitas Atma Jaya Yogyakarta
+      🎓 Universitas Atma Jaya Yogyakarta 2016
     </div>
   </div>
 
 </div>
-
-<script>
-let card = document.getElementById("card");
-let like = document.getElementById("like");
-let nope = document.getElementById("nope");
-
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
-
-card.addEventListener("touchstart", startDrag);
-card.addEventListener("mousedown", startDrag);
-
-function startDrag(e) {
-  isDragging = true;
-  startX = e.touches ? e.touches[0].clientX : e.clientX;
-}
-
-document.addEventListener("touchmove", drag);
-document.addEventListener("mousemove", drag);
-
-function drag(e) {
-  if (!isDragging) return;
-
-  currentX = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
-
-  card.style.transform = `translateX(${currentX}px) rotate(${currentX/15}deg)`;
-
-  if (currentX > 50) {
-    like.style.opacity = 1;
-    nope.style.opacity = 0;
-  } else if (currentX < -50) {
-    nope.style.opacity = 1;
-    like.style.opacity = 0;
-  } else {
-    like.style.opacity = 0;
-    nope.style.opacity = 0;
-  }
-}
-
-document.addEventListener("touchend", endDrag);
-document.addEventListener("mouseup", endDrag);
-
-function endDrag() {
-  isDragging = false;
-
-  if (currentX > 120) {
-    card.style.transform = "translateX(1000px) rotate(20deg)";
-    setTimeout(() => {
-      window.location.href = "main.html";
-    }, 300);
-  } else if (currentX < -120) {
-    card.style.transform = "translateX(-1000px) rotate(-20deg)";
-  } else {
-    card.style.transform = "translateX(0)";
-    like.style.opacity = 0;
-    nope.style.opacity = 0;
-  }
-}
-</script>
 
 </body>
 </html>
