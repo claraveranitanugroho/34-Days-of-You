@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- WAJIB untuk mobile -->
+  <!-- WAJIB MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>34 Days of You 💛</title>
@@ -21,7 +21,6 @@
       background: black;
     }
 
-    /* FULL SCREEN CARD */
     .card {
       width: 100vw;
       height: 100vh;
@@ -32,7 +31,6 @@
       transition: transform 0.3s ease;
     }
 
-    /* IMAGE FULL */
     .image {
       width: 100%;
       height: 100%;
@@ -40,7 +38,6 @@
       background-position: center;
     }
 
-    /* CLOSE BUTTON */
     .close-btn {
       position: absolute;
       top: 20px;
@@ -56,7 +53,6 @@
       align-items: center;
     }
 
-    /* OVERLAY TEXT */
     .overlay {
       position: absolute;
       bottom: 0;
@@ -64,6 +60,9 @@
       padding: 20px;
       color: white;
       background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+
+      /* 🔥 FIX BIAR NGGAK KETUTUP NAVBAR HP */
+      padding-bottom: calc(60px + env(safe-area-inset-bottom));
     }
 
     .verified {
@@ -76,18 +75,17 @@
     }
 
     .name {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
+      margin-bottom: 5px;
     }
 
     .info {
       font-size: 14px;
-      margin-top: 8px;
       line-height: 1.5;
       opacity: 0.9;
     }
 
-    /* LIKE / NOPE LABEL */
     .label {
       position: absolute;
       top: 50px;
@@ -104,16 +102,6 @@
     .nope {
       left: 20px;
       color: red;
-    }
-
-    /* RESPONSIVE EXTRA */
-    @media (max-width: 480px) {
-      .name {
-        font-size: 22px;
-      }
-      .info {
-        font-size: 13px;
-      }
     }
 
   </style>
