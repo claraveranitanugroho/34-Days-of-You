@@ -6,20 +6,31 @@
   <title>34 Days of You 💛</title>
 
   <style>
-    body {
+    * {
       margin: 0;
-      overflow: hidden;
-      font-family: Arial;
-      background: black;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: Arial;
+      background: black;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ===== CARD (Layar utama) ===== */
     .card {
-      position: fixed;
-      width: 100vw;
+      position: relative;
+      width: 100%;
+      max-width: 420px; /* biar kayak HP di desktop */
       height: 100vh;
+      overflow: hidden;
       transition: transform 0.3s ease;
     }
 
+    /* ===== FOTO ===== */
     .image {
       position: absolute;
       width: 100%;
@@ -28,31 +39,40 @@
       z-index: 1;
     }
 
-    .overlay::before {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  width: 100%;
-  height: 200px;
-
-  background: linear-gradient(
-    to top,
-    rgba(255, 105, 180, 0.4),
-    transparent
-  );
-
-  z-index: -1;
-}
-    
+    /* ===== OVERLAY (TEXT AREA) ===== */
     .overlay {
-     position: absolute;
-     bottom: 120px; /* 🔥 naik dari sebelumnya */
-     width: 100%;
-     color: white;
-     padding: 20px;
-     background: linear-gradient(to top, rgba(0.9,0.9,0.9,0.9), transparent);
-     z-index: 2;
+      position: absolute;
+      left: 0;
+      right: 0;
+
+      /* 🔥 JARAK DINAMIS: selalu di atas tombol */
+      bottom: calc(180px + env(safe-area-inset-bottom));
+
+      padding: 20px;
+      color: white;
+
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.85),
+        transparent
+      );
+
+      z-index: 2;
+    }
+
+    /* 💖 garis pink di atas overlay */
+    .overlay::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+
+      background: linear-gradient(to right, #ff4d6d, #ff99cc);
+      border-radius: 10px;
+
+      box-shadow: 0 0 10px rgba(255,105,180,0.7);
     }
 
     .verified {
@@ -67,14 +87,17 @@
     .name {
       font-size: 26px;
       font-weight: bold;
+      margin-bottom: 5px;
       text-shadow: 0 0 10px rgba(255,105,180,0.6);
     }
 
     .info {
       font-size: 14px;
-      margin-top: 5px;
+      line-height: 1.5;
+      opacity: 0.9;
     }
 
+    /* ===== CLOSE BUTTON ===== */
     .close {
       position: absolute;
       top: 20px;
@@ -84,6 +107,7 @@
       z-index: 3;
     }
 
+    /* ===== LIKE / NOPE LABEL ===== */
     .label {
       position: absolute;
       top: 60px;
@@ -103,10 +127,10 @@
       color: red;
     }
 
-    /* 🔥 BUTTON UI */
+    /* ===== BUTTON AREA ===== */
     .actions {
       position: absolute;
-      bottom: calc(120px + env(safe-area-inset-bottom));
+      bottom: calc(40px + env(safe-area-inset-bottom));
       width: 100%;
       display: flex;
       justify-content: center;
@@ -121,7 +145,12 @@
       border: none;
       font-size: 28px;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.9);
     }
 
     .no-btn {
@@ -156,7 +185,6 @@
     </div>
   </div>
 
-  <!-- 🔥 BUTTON -->
   <div class="actions">
     <button class="btn no-btn" onclick="swipeLeft()">❌</button>
     <button class="btn yes-btn" onclick="swipeRight()">❤️</button>
