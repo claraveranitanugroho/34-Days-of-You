@@ -89,12 +89,12 @@
     /* 🔥 BUTTON UI */
     .actions {
       position: absolute;
-      bottom: 30px;
+      bottom: calc(80px + env(safe-area-inset-bottom));
       width: 100%;
       display: flex;
       justify-content: center;
       gap: 40px;
-      z-index: 5;
+      z-index: 999;
     }
 
     .btn {
