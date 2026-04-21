@@ -6,171 +6,199 @@
 <title>34 Days of You 💛</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  background: #f5f5f5;
-  font-family: Arial;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background:#f5f5f5;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
 /* ===== CONTAINER ===== */
 .container {
-  width: 100%;
-  max-width: 420px;
-  padding: 20px;
+  width:100%;
+  max-width:420px;
+  padding:20px;
+  position:relative;
 }
 
 /* ===== CARD ===== */
 .card {
-  position: relative;
-  width: 100%;
-  height: 70vh;
-  border-radius: 25px;
-  overflow: hidden;
-  background: black;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position:absolute;
+  width:100%;
+  height:70vh;
+  border-radius:25px;
+  overflow:hidden;
+  background:black;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
   transition: transform 0.3s ease;
 }
 
-/* ===== IMAGE ===== */
+/* stack effect */
+.card:nth-child(2) {
+  transform: scale(0.95) translateY(10px);
+  opacity:0.8;
+}
+.card:nth-child(3) {
+  transform: scale(0.9) translateY(20px);
+  opacity:0.6;
+}
+
 .image {
-  width: 100%;
-  height: 100%;
-  background: url('clara.jpg') center/cover no-repeat;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
 }
 
-/* ===== OVERLAY ===== */
 .overlay {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 20px;
-  color: white;
-  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:20px;
+  color:white;
+  background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
 }
 
-/* ===== VERIFIED ===== */
-.verified {
-  font-size: 12px;
-  background: rgba(255,255,255,0.2);
-  padding: 5px 10px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-/* ===== NAME ===== */
 .name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-size:24px;
+  font-weight:bold;
 }
 
-/* ===== INFO ===== */
 .info {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size:14px;
+  margin-top:5px;
 }
 
-/* ===== CLOSE BUTTON ===== */
-.close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: rgba(0,0,0,0.5);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ===== ACTION BUTTONS ===== */
+/* ===== BUTTON ===== */
 .actions {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
+  margin-top:75vh;
+  display:flex;
+  justify-content:center;
+  gap:40px;
 }
 
 .btn {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  transition: transform 0.2s;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:none;
+  font-size:28px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
-.btn:active {
-  transform: scale(0.9);
+.no-btn { background:white; }
+.yes-btn { background:#ff4458; color:white; }
+
+/* ===== MATCH POPUP ===== */
+.match {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:0.5s;
 }
 
-.no-btn {
-  background: white;
+.match.show {
+  opacity:1;
+  pointer-events:auto;
 }
 
-.yes-btn {
-  background: #ff4458;
-  color: white;
+.match h1 {
+  font-size:40px;
+  color:#ff4d6d;
+  margin-bottom:20px;
 }
 
+.match p {
+  font-size:18px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="container" id="container">
 
-  <div class="card" id="card">
-
-    <div class="image"></div>
-
-    <div class="close">✕</div>
-
-    <div class="overlay">
-      <div class="verified">✔ Photo verified</div>
-      <div class="name">Clara, 31</div>
-      <div class="info">
-        💼 IT (SAP Business Operation) at FMCG <br>
-        🎓 Universitas Atma Jaya Yogyakarta 2016
-      </div>
-    </div>
-
+  <!-- CARD 3 -->
+  <div class="card">
+    <div class="image" style="background-image:url('clara3.jpg')"></div>
   </div>
 
-  <!-- BUTTON DI LUAR CARD -->
-  <div class="actions">
-    <button class="btn no-btn" onclick="swipeLeft()">❌</button>
-    <button class="btn yes-btn" onclick="swipeRight()">❤️</button>
+  <!-- CARD 2 -->
+  <div class="card">
+    <div class="image" style="background-image:url('clara2.jpg')"></div>
+  </div>
+
+  <!-- CARD 1 (TOP) -->
+  <div class="card" id="topCard">
+    <div class="image" style="background-image:url('clara.jpg')"></div>
+    <div class="overlay">
+      <div class="name">Clara, 31</div>
+      <div class="info">
+        💼 IT (SAP Business Operation)<br>
+        🎓 Universitas Atma Jaya
+      </div>
+    </div>
   </div>
 
 </div>
 
+<!-- BUTTON -->
+<div class="actions">
+  <button class="btn no-btn" onclick="swipeLeft()">❌</button>
+  <button class="btn yes-btn" onclick="swipeRight()">❤️</button>
+</div>
+
+<!-- MATCH SCREEN -->
+<div class="match" id="matchScreen">
+  <h1>💛 It's a Match!</h1>
+  <p>Aku pilih kamu, hari ini dan seterusnya 💖</p>
+</div>
+
 <script>
-let card = document.getElementById("card");
+let container = document.getElementById("container");
 
 function swipeRight() {
+  let card = container.children[container.children.length - 1];
   card.style.transform = "translateX(400px) rotate(20deg)";
+
   setTimeout(() => {
-    window.location.href = "main.html";
+    card.remove();
+
+    showMatch();
   }, 300);
 }
 
 function swipeLeft() {
+  let card = container.children[container.children.length - 1];
   card.style.transform = "translateX(-400px) rotate(-20deg)";
+
+  setTimeout(() => {
+    card.remove();
+  }, 300);
+}
+
+function showMatch() {
+  let match = document.getElementById("matchScreen");
+  match.classList.add("show");
+
+  setTimeout(() => {
+    window.location.href = "main.html";
+  }, 2000);
 }
 </script>
 
