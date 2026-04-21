@@ -40,19 +40,25 @@
     }
 
     /* ===== OVERLAY ===== */
-    .overlay {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: calc(140px + env(safe-area-inset-bottom));
-      padding: 20px;
-      color: white;
+   .overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
 
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.85),
-        transparent
-      );
+  /* 🔥 dinaikkan lebih aman */
+  bottom: calc(200px + env(safe-area-inset-bottom));
+
+  padding: 20px;
+  color: white;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85),
+    transparent
+  );
+
+  z-index: 2;
+}
 
       z-index: 2;
     }
@@ -125,14 +131,14 @@
 
     /* ===== BUTTON ===== */
     .actions {
-      position: absolute;
-      bottom: calc(40px + env(safe-area-inset-bottom));
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      z-index: 999;
-    }
+  position: absolute;
+  bottom: calc(30px + env(safe-area-inset-bottom));
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  z-index: 999;
+}
 
     .btn {
       width: 70px;
