@@ -11,7 +11,6 @@
 body {
   background:#f5f5f5;
   font-family:Arial;
-  margin: 0;
 }
 
 /* ===== CONTAINER ===== */
@@ -26,14 +25,16 @@ body {
 
 /* ===== CARD ===== */
 .card {
-  position: relative; /* ganti dari absolute */
+  position: relative;
   width: 100%;
   height: 65vh;
   border-radius: 25px;
   overflow: hidden;
   background: black;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  margin-bottom: 20px; /* kasih jarak natural ke button */
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+  touch-action: none;
 }
 
 /* stack effect */
@@ -72,12 +73,23 @@ body {
   margin-top:5px;
 }
 
+/* LIKE / NOPE */
+.like, .nope {
+  position: absolute;
+  top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.like { left: 20px; color: #4CAF50; }
+.nope { right: 20px; color: #ff4458; }
+
 /* ===== BUTTON ===== */
 .actions {
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-top: 10px; /* kecil & fleksibel */
 }
 
 .btn {
@@ -121,10 +133,6 @@ body {
   color:#ff4d6d;
   margin-bottom:20px;
 }
-
-.match p {
-  font-size:18px;
-}
 </style>
 </head>
 
@@ -132,19 +140,20 @@ body {
 
 <div class="container" id="container">
 
-  <!-- CARD 3 -->
   <div class="card">
     <div class="image" style="background-image:url('clara3.jpg')"></div>
   </div>
 
-  <!-- CARD 2 -->
   <div class="card">
     <div class="image" style="background-image:url('clara2.jpg')"></div>
   </div>
 
-  <!-- CARD 1 (TOP) -->
-  <div class="card" id="topCard">
+  <div class="card">
     <div class="image" style="background-image:url('clara.jpg')"></div>
+
+    <div class="like">LIKE</div>
+    <div class="nope">NOPE</div>
+
     <div class="overlay">
       <div class="name">Clara, 31</div>
       <div class="info">
@@ -156,13 +165,11 @@ body {
 
 </div>
 
-<!-- BUTTON -->
 <div class="actions">
   <button class="btn no-btn" onclick="swipeLeft()">❌</button>
   <button class="btn yes-btn" onclick="swipeRight()">❤️</button>
 </div>
 
-<!-- MATCH SCREEN -->
 <div class="match" id="matchScreen">
   <h1>💛 It's a Match!</h1>
   <p>Aku pilih kamu, hari ini dan seterusnya 💖</p>
@@ -171,24 +178,95 @@ body {
 <script>
 let container = document.getElementById("container");
 
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+let card = null;
+
+function getTopCard() {
+  return container.lastElementChild;
+}
+
+function handleStart(e) {
+  card = getTopCard();
+  if (!card) return;
+
+  isDragging = true;
+  startX = e.touches ? e.touches[0].clientX : e.clientX;
+}
+
+function handleMove(e) {
+  if (!isDragging || !card) return;
+
+  currentX = e.touches ? e.touches[0].clientX : e.clientX;
+  let deltaX = currentX - startX;
+
+  let rotate = deltaX / 10;
+
+  card.style.transition = "none";
+  card.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
+
+  let like = card.querySelector(".like");
+  let nope = card.querySelector(".nope");
+
+  if (like && nope) {
+    if (deltaX > 0) {
+      like.style.opacity = Math.min(deltaX / 100, 1);
+      nope.style.opacity = 0;
+    } else {
+      nope.style.opacity = Math.min(-deltaX / 100, 1);
+      like.style.opacity = 0;
+    }
+  }
+}
+
+function handleEnd() {
+  if (!isDragging || !card) return;
+
+  isDragging = false;
+
+  let deltaX = currentX - startX;
+
+  if (deltaX > 120) {
+    swipeRight();
+  } else if (deltaX < -120) {
+    swipeLeft();
+  } else {
+    card.style.transition = "0.3s";
+    card.style.transform = "translateX(0) rotate(0)";
+  }
+}
+
 function swipeRight() {
-  let card = container.children[container.children.length - 1];
-  card.style.transform = "translateX(400px) rotate(20deg)";
+  let card = getTopCard();
+  if (!card) return;
+
+  card.style.transition = "0.4s";
+  card.style.transform = "translateX(500px) rotate(25deg)";
 
   setTimeout(() => {
     card.remove();
 
-    showMatch();
-  }, 300);
+    if (container.children.length === 0) {
+      showMatch();
+    }
+  }, 400);
 }
 
 function swipeLeft() {
-  let card = container.children[container.children.length - 1];
-  card.style.transform = "translateX(-400px) rotate(-20deg)";
+  let card = getTopCard();
+  if (!card) return;
+
+  card.style.transition = "0.4s";
+  card.style.transform = "translateX(-500px) rotate(-25deg)";
 
   setTimeout(() => {
     card.remove();
-  }, 300);
+
+    if (container.children.length === 0) {
+      showMatch();
+    }
+  }, 400);
 }
 
 function showMatch() {
@@ -197,8 +275,17 @@ function showMatch() {
 
   setTimeout(() => {
     window.location.href = "main.html";
-  }, 2000);
+  }, 2500);
 }
+
+// event listener
+document.addEventListener("touchstart", handleStart);
+document.addEventListener("touchmove", handleMove);
+document.addEventListener("touchend", handleEnd);
+
+document.addEventListener("mousedown", handleStart);
+document.addEventListener("mousemove", handleMove);
+document.addEventListener("mouseup", handleEnd);
 </script>
 
 </body>
