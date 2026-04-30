@@ -3,93 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>34 Days of You 💛</title>
+<title>For You 💛</title>
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  background:#f5f5f5;
-  font-family:Arial;
+  font-family: 'Arial', sans-serif;
+  background:#fafafa;
+  overflow:hidden;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  width: 100%;
-  min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* ===== APP LAYOUT ===== */
+.app {
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:20px;
+  background:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ===== CARD AREA ===== */
+.card-container {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
 }
 
 /* ===== CARD ===== */
 .card {
-  position: relative;
-  width: 100%;
-  height: 65vh;
-  border-radius: 25px;
-  overflow: hidden;
-  background: black;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  margin-bottom: 20px;
-  transition: transform 0.3s ease;
-  touch-action: none;
+  position:absolute;
+  width:90%;
+  height:75vh;
+  border-radius:25px;
+  overflow:hidden;
+  background:#eee;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  transition:transform 0.3s ease;
 }
 
-/* stack effect */
-.card:nth-child(2) {
-  transform: scale(0.95) translateY(10px);
-  opacity: 0.8;
-}
-.card:nth-child(3) {
-  transform: scale(0.9) translateY(20px);
-  opacity: 0.6;
-}
-
-.image {
+.card img {
   width:100%;
   height:100%;
-  background-size:cover;
-  background-position:center;
+  object-fit:cover;
 }
 
+/* STACK */
+.card:nth-child(1) { transform:scale(0.95) translateY(10px); opacity:0.8; }
+.card:nth-child(2) { transform:scale(0.9) translateY(20px); opacity:0.6; }
+
+/* OVERLAY */
 .overlay {
   position:absolute;
   bottom:0;
   width:100%;
   padding:20px;
   color:white;
-  background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  background:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
-.name {
-  font-size:24px;
-  font-weight:bold;
-}
-
-.info {
-  font-size:14px;
-  margin-top:5px;
-}
+.name { font-size:24px; font-weight:bold; }
+.info { font-size:14px; margin-top:5px; }
 
 /* LIKE / NOPE */
-.like, .nope {
-  position: absolute;
-  top: 20px;
-  font-size: 28px;
-  font-weight: bold;
-  opacity: 0;
+.label {
+  position:absolute;
+  top:30px;
+  font-size:32px;
+  font-weight:bold;
+  opacity:0;
 }
 
-.like { left: 20px; color: #4CAF50; }
-.nope { right: 20px; color: #ff4458; }
+.like { left:20px; color:#4CAF50; }
+.nope { right:20px; color:#ff4458; }
 
-/* ===== BUTTON ===== */
+/* ===== BUTTON AREA ===== */
 .actions {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
+  height:100px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
+  background:white;
 }
 
 .btn {
@@ -99,20 +107,17 @@ body {
   border:none;
   font-size:28px;
   cursor:pointer;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
 .no-btn { background:white; }
 .yes-btn { background:#ff4458; color:white; }
 
-/* ===== MATCH POPUP ===== */
+/* MATCH */
 .match {
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.85);
+  inset:0;
+  background:rgba(0,0,0,0.9);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -127,52 +132,49 @@ body {
   opacity:1;
   pointer-events:auto;
 }
-
-.match h1 {
-  font-size:40px;
-  color:#ff4d6d;
-  margin-bottom:20px;
-}
 </style>
 </head>
 
 <body>
 
-<div class="container" id="container">
+<div class="app">
 
-  <div class="card">
-    <div class="image" style="background-image:url('clara3.jpg')"></div>
-  </div>
+  <div class="topbar">💛 For You</div>
 
-  <div class="card">
-    <div class="image" style="background-image:url('clara2.jpg')"></div>
-  </div>
+  <div class="card-container" id="container">
 
-  <div class="card">
-    <div class="image" style="background-image:url('clara.jpg')"></div>
+    <div class="card">
+      <img src="clara3.jpg">
+    </div>
 
-    <div class="like">LIKE</div>
-    <div class="nope">NOPE</div>
+    <div class="card">
+      <img src="clara2.jpg">
+    </div>
 
-    <div class="overlay">
-      <div class="name">Clara, 31</div>
-      <div class="info">
-        💼 IT (SAP Business Operation)<br>
-        🎓 Universitas Atma Jaya
+    <div class="card">
+      <img src="clara.jpg">
+
+      <div class="label like">LIKE</div>
+      <div class="label nope">NOPE</div>
+
+      <div class="overlay">
+        <div class="name">Clara, 31</div>
+        <div class="info">IT • Atma Jaya</div>
       </div>
     </div>
+
+  </div>
+
+  <div class="actions">
+    <button class="btn no-btn" onclick="swipe(-1)">❌</button>
+    <button class="btn yes-btn" onclick="swipe(1)">❤️</button>
   </div>
 
 </div>
 
-<div class="actions">
-  <button class="btn no-btn" onclick="swipeLeft()">❌</button>
-  <button class="btn yes-btn" onclick="swipeRight()">❤️</button>
-</div>
-
-<div class="match" id="matchScreen">
+<div class="match" id="match">
   <h1>💛 It's a Match!</h1>
-  <p>Aku pilih kamu, hari ini dan seterusnya 💖</p>
+  <p>Aku pilih kamu 💖</p>
 </div>
 
 <script>
@@ -187,105 +189,85 @@ function getTopCard() {
   return container.lastElementChild;
 }
 
-function handleStart(e) {
+/* DRAG START */
+function start(e){
   card = getTopCard();
-  if (!card) return;
+  if(!card) return;
 
   isDragging = true;
   startX = e.touches ? e.touches[0].clientX : e.clientX;
 }
 
-function handleMove(e) {
-  if (!isDragging || !card) return;
+/* DRAG MOVE */
+function move(e){
+  if(!isDragging || !card) return;
 
   currentX = e.touches ? e.touches[0].clientX : e.clientX;
-  let deltaX = currentX - startX;
+  let dx = currentX - startX;
 
-  let rotate = deltaX / 10;
+  let rotate = dx * 0.05;
 
   card.style.transition = "none";
-  card.style.transform = `translateX(${deltaX}px) rotate(${rotate}deg)`;
+  card.style.transform = `translateX(${dx}px) rotate(${rotate}deg)`;
 
   let like = card.querySelector(".like");
   let nope = card.querySelector(".nope");
 
-  if (like && nope) {
-    if (deltaX > 0) {
-      like.style.opacity = Math.min(deltaX / 100, 1);
-      nope.style.opacity = 0;
-    } else {
-      nope.style.opacity = Math.min(-deltaX / 100, 1);
-      like.style.opacity = 0;
-    }
+  if(dx > 0){
+    like.style.opacity = Math.min(dx/100,1);
+    nope.style.opacity = 0;
+  } else {
+    nope.style.opacity = Math.min(-dx/100,1);
+    like.style.opacity = 0;
   }
 }
 
-function handleEnd() {
-  if (!isDragging || !card) return;
+/* DRAG END */
+function end(){
+  if(!isDragging || !card) return;
 
   isDragging = false;
+  let dx = currentX - startX;
 
-  let deltaX = currentX - startX;
-
-  if (deltaX > 120) {
-    swipeRight();
-  } else if (deltaX < -120) {
-    swipeLeft();
-  } else {
+  if(dx > 120) swipe(1);
+  else if(dx < -120) swipe(-1);
+  else {
     card.style.transition = "0.3s";
-    card.style.transform = "translateX(0) rotate(0)";
+    card.style.transform = "";
   }
 }
 
-function swipeRight() {
+/* SWIPE */
+function swipe(dir){
   let card = getTopCard();
-  if (!card) return;
+  if(!card) return;
+
+  let moveX = dir * 600;
 
   card.style.transition = "0.4s";
-  card.style.transform = "translateX(500px) rotate(25deg)";
+  card.style.transform = `translateX(${moveX}px) rotate(${dir*25}deg)`;
 
-  setTimeout(() => {
+  setTimeout(()=>{
     card.remove();
 
-    if (container.children.length === 0) {
-      showMatch();
+    if(container.children.length === 0){
+      document.getElementById("match").classList.add("show");
+
+      setTimeout(()=>{
+        window.location.href = "main.html";
+      },2500);
     }
-  }, 400);
+  },400);
 }
 
-function swipeLeft() {
-  let card = getTopCard();
-  if (!card) return;
+/* EVENTS */
+document.addEventListener("mousedown", start);
+document.addEventListener("mousemove", move);
+document.addEventListener("mouseup", end);
 
-  card.style.transition = "0.4s";
-  card.style.transform = "translateX(-500px) rotate(-25deg)";
-
-  setTimeout(() => {
-    card.remove();
-
-    if (container.children.length === 0) {
-      showMatch();
-    }
-  }, 400);
-}
-
-function showMatch() {
-  let match = document.getElementById("matchScreen");
-  match.classList.add("show");
-
-  setTimeout(() => {
-    window.location.href = "main.html";
-  }, 2500);
-}
-
-// event listener
-document.addEventListener("touchstart", handleStart);
-document.addEventListener("touchmove", handleMove);
-document.addEventListener("touchend", handleEnd);
-
-document.addEventListener("mousedown", handleStart);
-document.addEventListener("mousemove", handleMove);
-document.addEventListener("mouseup", handleEnd);
+document.addEventListener("touchstart", start);
+document.addEventListener("touchmove", move);
+document.addEventListener("touchend", end);
 </script>
 
 </body>
